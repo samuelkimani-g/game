@@ -1,0 +1,49 @@
+!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Fetch Todos</title>
+</head>
+
+<body>
+ <h1>Todos</h1>
+ <div id="container">
+
+
+ </div>
+ <script>
+ let todoscontainer = document.getElementById("container")
+ async function getData() {
+ try {
+ let response = await fetch("https://jsonplaceholder.typicode.com/todos/")
+ if (!response.ok) {
+ throw new Error("Some error occurred", response.status)
+ }
+ let data = await response.json()
+ data.forEach(todo => {
+ let tododiv = document.createElement('div')
+ tododiv.innerHTML =
+ `<h1>${todo.title}</h1>
+ <p>${todo.completed}</p>
+ <p>${todo.userId}</p>
+ `
+ todoscontainer.appendChild(tododiv)
+
+ })
+ } catch (error) {
+
+ console.log(error)
+ }
+
+ }
+
+ getData();
+
+ </script>
+
+</body>
+
+</html>
